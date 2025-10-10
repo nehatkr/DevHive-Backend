@@ -1,0 +1,3 @@
+-installed npm init
+-created a server
+-installed nodemon
