@@ -1,0 +1,19 @@
+{
+  "name": "devhive-backend",
+  "version": "1.0.0",
+  "description": "backed for the devHive",
+  "main": "index.js",
+  "scripts": {
+    "dev" : "src/server.js",
+    "start" : "src/server.js"
+  },
+  "keywords": [
+    "node.js",
+    "javascript"
+  ],
+  "author": "Neha Thakur",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^5.1.0"
+  }
+}
