@@ -8,5 +8,9 @@
 -mongoDB connected successfully
 -created a models folder for the shcema
 -user schema created and userModel
-
+-Created a post signup API to add data to database
+-push a documents by the use of api call
+-error handling using try , catch
+-now start sending the dynamic data of the user frome the api
+-we are start using the body of the api
 

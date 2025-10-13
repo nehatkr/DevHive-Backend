@@ -4,7 +4,7 @@
   "description": "backed for the devHive",
   "main": "index.js",
   "scripts": {
-    "dev": "node src/server.js",
+    "dev": "nodemon src/server.js",
     "start": "src/server.js"
   },
   "keywords": [
@@ -15,6 +15,7 @@
   "license": "ISC",
   "dependencies": {
     "express": "^5.1.0",
-    "mongoose": "^8.19.1"
+    "mongoose": "^8.19.1",
+    "nodemon": "^3.1.10"
   }
 }
