@@ -13,4 +13,5 @@
 -error handling using try , catch
 -now start sending the dynamic data of the user frome the api
 -we are start using the body of the api
+-created get, post,delete,patch api 
 

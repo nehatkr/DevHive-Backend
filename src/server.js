@@ -45,16 +45,31 @@ app.get("/feed", async (req, res) => {
 });
 
 // Delete the user from the database
-app.delete("/delete", async(req, res)=>{
+app.delete("/user", async (req, res) => {
   const userId = req.body.userId;
-  try{
+  try {
     const user = await User.findByIdAndDelete(userId);
-    res.send("User deleted successfully")
-  }catch(e){
-        res.status(400).send("Something went wrong");
-
+    // const user = await User.findByIdAndDelete({_id : userId});
+    res.send("User deleted successfully");
+  } catch (e) {
+    res.status(400).send("Something went wrong");
   }
-})
+});
+
+// Update the user info in the database
+app.patch("/user", async (req, res) => {
+  const userId = req.body.userId;
+  const data = req.body;
+  try {
+    const user = await User.findByIdAndUpdate({ _id: userId }, data, {returnDocument:"before"});
+    console.log(user)
+    res.send("User updated successfully");
+  } catch (e) {
+    res.status(400).send("Something went wrong");
+  }
+});
+
+
 connectToDB()
   .then(() => {
     console.log("DataBase connected successfully");
