@@ -16,4 +16,13 @@
 -created get, post,delete,patch api 
 -created a custom validator in the schema
 -I dont want to updated my email id so I need to do some api lavel validation also
--Added data sanitization 
+-Added data sanitization - By doing Api level validation 
+-now lates validate the email Id field - Email Id should be valid (it's very tough to validate the email id so we can use a library email validator)
+-db level validation is done for the email.
+-write a validate function in the schema to check weather the photo url is valid string or not.
+-added a strong password validator
+-never trust the req.body {the attacker can send the some malicious data}
+-created a utils folder with file validation.js and write validation while sign up the user
+-now install a npm package bcrypt for hashing the password
+
+

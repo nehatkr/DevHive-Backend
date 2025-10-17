@@ -1,4 +1,5 @@
 const mongoose = require("mongoose");
+const validator = require("validator")
 
 const userSchema = new mongoose.Schema(
   {
@@ -17,10 +18,20 @@ const userSchema = new mongoose.Schema(
       required: true,
       unique: true,
       trim: true,
+      validate(value){
+        if(!validator.isEmail(value)){
+            throw new Error("Not a valid Email Address: " + value)
+        }
+      }
     },
     password: {
       type: String,
       required: true,
+       validate(value){
+        if(!validator.isStrongPassword(value)){
+            throw new Error("Enter a strong password: " + value)
+        }
+      }
     },
     age: {
       type: Number,
@@ -28,6 +39,7 @@ const userSchema = new mongoose.Schema(
     },
     gender: {
       type: String,
+      lowercase:true,
       validate(value) {
         if (!["male", "female", "others"].includes(value)) {
           throw new Error("Gender data is not valid");
@@ -37,6 +49,11 @@ const userSchema = new mongoose.Schema(
     photoUrl: {
       type: String,
       default: "https://sipl.ind.in/wp-content/uploads/2022/07/dummy-user.png",
+       validate(value){
+        if(!validator.isURL(value)){
+            throw new Error("Not a valid Photo Url: " + value)
+        }
+      }
     },
     about: {
       type: String,
