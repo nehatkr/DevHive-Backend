@@ -14,4 +14,6 @@
 -now start sending the dynamic data of the user frome the api
 -we are start using the body of the api
 -created get, post,delete,patch api 
-
+-created a custom validator in the schema
+-I dont want to updated my email id so I need to do some api lavel validation also
+-Added data sanitization 
