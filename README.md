@@ -28,5 +28,9 @@
 -now adding the jwt and cookie authentications
 -installed cookie-parser for reading the cookie from the req.body , build by express js
 -installed jsonwebtoken(jwt)
+-write the userAuth middleware for validations and add that middleware in the apis
+-set the expiry of the cookies and jwt token so that user can't be login forever
+-created a userSchema methods to jwt token
+-created userSchema methods to comparePassword
 
 
