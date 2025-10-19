@@ -24,5 +24,7 @@
 -never trust the req.body {the attacker can send the some malicious data}
 -created a utils folder with file validation.js and write validation while sign up the user
 -now install a npm package bcrypt for hashing the password
+-now create a login api with emailId , password with hashed password
+
 
 
