@@ -25,6 +25,8 @@
 -created a utils folder with file validation.js and write validation while sign up the user
 -now install a npm package bcrypt for hashing the password
 -now create a login api with emailId , password with hashed password
-
+-now adding the jwt and cookie authentications
+-installed cookie-parser for reading the cookie from the req.body , build by express js
+-installed jsonwebtoken(jwt)
 
 

@@ -4,8 +4,10 @@ const User = require("./models/user");
 const app = express(); //creation of express js application
 const {validateSignUpData} = require('./utils/validation')
 const bcrypt = require('bcrypt')
+const cookieParser  = require('cookie-parser');
 
 app.use(express.json()); //using a middle ware to read the json data of the req body of the api
+app.use(cookieParser());  //this middleware is used to parse or read the cookie
 
 app.post("/signup", async (req, res) => {
 
