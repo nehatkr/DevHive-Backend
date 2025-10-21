@@ -32,5 +32,5 @@
 -set the expiry of the cookies and jwt token so that user can't be login forever
 -created a userSchema methods to jwt token
 -created userSchema methods to comparePassword
-
+-now creating apis for different routes (aap.use and router.use  is the same thing)
 
