@@ -34,4 +34,6 @@
 -created userSchema methods to comparePassword
 -now creating apis for different routes (aap.use and router.use  is the same thing)
 -created a logout api also , it can be more complicated in big applications
+-created the apis like - profile edit , profile view and logout api
+-added a coustom enum validator
 
