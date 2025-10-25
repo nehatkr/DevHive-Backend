@@ -36,4 +36,9 @@
 -created a logout api also , it can be more complicated in big applications
 -created the apis like - profile edit , profile view and logout api
 -added a coustom enum validator
+-created aconnection request schema 
+created a schema method and pre function 
+created a router for the connection request - api for connection request and make it secure by adding some validation
+-implemented a $or , $and queries in mongoose
+- we have used index queries for the connection reaquest
 

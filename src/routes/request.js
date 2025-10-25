@@ -52,7 +52,7 @@ requestRouter.post(
 
       const data = await connectionRequest.save(); //saving the connection request data in the db
       res.json({
-        message: "Connection Request Sent Successfully!",
+        message: req.user.firstName + " is " + status + " in " + toUser.firstName,
         data,
       });
     } catch (err) {

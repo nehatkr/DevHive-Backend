@@ -22,19 +22,25 @@ const connectionRequestSchema = new mongoose.Schema(
   { timestamps: true }
 );
 
+// creating the compound index so that the queries in schima became fast even their is millions of queries in our database it will became very very fast
+connectionRequestSchema.index({fromUserId: 1, toUserId: 1}) 
+
 //save is a kind a event - this pre call this event whenever this event is trigger
 // Always use normal function not a arrow function for the schema methods and pre functions
 //every time this will be called when the connection Request will be saved - whenever we save a connection request
 // we can check any validation here we are going to check that id the fromUserId or toUserId is same or not.
 
-connectionRequestSchema.pre("save", function(next){ 
-  const connectionRequest = this;                  
-if (connectionRequest.fromUserId.equals(connectionRequest.toUserId)) {
-throw new this.errors("Cannot send the connection request to yourself!")
-}
-next();
-})
+connectionRequestSchema.pre("save", function (next) {
+  const connectionRequest = this;
+  if (connectionRequest.fromUserId.equals(connectionRequest.toUserId)) {
+    throw new Error("Cannot send the connection request to yourself!");
+  }
+  next();
+});
 
-const ConnectionRequestModel =  mongoose.model("ConnectionRequest", connectionRequestSchema);
+const ConnectionRequestModel = mongoose.model(
+  "ConnectionRequest",
+  connectionRequestSchema
+);
 
 module.exports = ConnectionRequestModel;
