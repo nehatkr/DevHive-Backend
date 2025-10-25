@@ -1,5 +1,7 @@
 const express = require("express");
 const requestRouter = express.Router();
+
+
 const User = require("../models/user");
 const { userAuth } = require("../middlewares/auth");
 const ConnectionRequest = require("../models/connectionRequest");
@@ -52,12 +54,47 @@ requestRouter.post(
 
       const data = await connectionRequest.save(); //saving the connection request data in the db
       res.json({
-        message: req.user.firstName + " is " + status + " in " + toUser.firstName,
+        message:
+          req.user.firstName + " is " + status + " in " + toUser.firstName,
         data,
       });
     } catch (err) {
       res.status(404).send("EROR: " + err.message);
     }
+  }
+);
+
+requestRouter.post(
+  "/request/review/:status/:requestId",
+  userAuth,
+  async (req, res) => {
+    try {
+      const { status, requestId } = req.params;
+      const loggedInUser = req.user;
+
+      const allowedStatus = ["accepted", "rejected"];
+      if (!allowedStatus.includes(status)) {
+        return res.status(400).json({ message: "Status not allowed" });
+      }
+
+      // request id should be valid so we checked the id : requestId
+      // connection request should go to that user who is logged in at that time , we are strictlly checking for the user who want to send the ststus
+      const connectionRequest = await ConnectionRequest.findOne({
+        _id: requestId,
+        toUserId: loggedInUser._id,
+        status: "interested",
+      });
+
+      if(!connectionRequest){
+        return res.status(404).json({message: "Connection request not found!"})
+      }
+
+      // now if we find the connection request then we attached the current status to the connection request to the "interested" statues wheather it is accepted or rejected
+      connectionRequest.status = status;
+     const data = await  connectionRequest.save();
+      res.json({message:"Connection request " + status, data});
+
+    } catch (err) {}
   }
 );
 
