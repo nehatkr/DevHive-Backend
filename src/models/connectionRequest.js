@@ -4,10 +4,12 @@ const connectionRequestSchema = new mongoose.Schema(
   {
     fromUserId: {
       type: mongoose.Schema.Types.ObjectId, //this is the user id type
+      ref: "User", //It is createing the relation between the 2 tables , this model refers the user model.
       required: true,
     },
     toUserId: {
       type: mongoose.Schema.Types.ObjectId, //this is the user id type
+      ref: "User",
       required: true,
     },
     status: {

@@ -42,3 +42,7 @@ created a schema method and pre function
 created a router for the connection request - api for connection request and make it secure by adding some validation
 -implemented a $or , $and queries in mongoose- we have used index queries for the connection reaquest
 -created a accepting request api
+-use pouplate , ref for making the referance
+-created a get api for reveive the request
+-wrote the connection received request api 
+-wrote the user connections  api 
