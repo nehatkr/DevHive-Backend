@@ -3,7 +3,7 @@ const userRouter = express.Router();
 
 const { userAuth } = require("../middlewares/auth");
 const ConnectionRequest = require("../models/connectionRequest");
-const User = require('../models/user')
+const User = require("../models/user");
 
 const USER_SAFE_DATA = "firstName lastName photoUrl age gender skills about";
 
@@ -41,8 +41,6 @@ userRouter.get("/user/connections", userAuth, async (req, res) => {
       .populate("fromUserId", USER_SAFE_DATA)
       .populate("toUserId", USER_SAFE_DATA);
 
-    console.log(connectionRequests);
-
     const data = connectionRequests.map((row) => {
       if (row.fromUserId._id.toString() === loggedInUser._id.toString()) {
         return row.toUserId;
@@ -57,41 +55,48 @@ userRouter.get("/user/connections", userAuth, async (req, res) => {
 
 // get the feed for a person
 userRouter.get("/feed", userAuth, async (req, res) => {
+  const page = parseInt(req.query.page) || 1;
+  let limit = parseInt(req.query.limit) || 10;
+  limit = limit > 50 ? 50 : limit;
+  const skip = (page - 1) * limit;
 
-//   user should not see the profile of whom hi accepted or rejected or idnored . and person also not see the card of connected people bcz they are connected already.
-//   and the person should no see his card also
+  //   user should not see the profile of whom hi accepted or rejected or idnored . and person also not see the card of connected people bcz they are connected already.
+  //   and the person should no see his card also
 
   try {
-
     // User should see all the users card except
     // 0. his own card
     // 1. idnored people
     // 2. his connections
     // 3. already sent the connection request
 
-    const loggedInUser = req.user;  //come from userAuth
+    const loggedInUser = req.user; //come from userAuth
 
     // Now lets find all the connection requests (recieved + sent)
     const connectionRequests = await ConnectionRequest.find({
-        $or: [{ fromUserId: loggedInUser._id}, { toUserId: loggedInUser._id}]
+      $or: [{ fromUserId: loggedInUser._id }, { toUserId: loggedInUser._id }],
     }).select("fromUserId toUserId");
 
     // set is a data structure which contain only the unique field
     const hideUsersFromFeed = new Set();
-    connectionRequests.forEach((req)=>{    //these are the people whom I want to hide
-        hideUsersFromFeed.add(req.fromUserId.toString());
-        hideUsersFromFeed.add(req.toUserId.toString());
-    })
+    connectionRequests.forEach((req) => {
+      //these are the people whom I want to hide
+      hideUsersFromFeed.add(req.fromUserId.toString());
+      hideUsersFromFeed.add(req.toUserId.toString());
+    });
 
     const users = await User.find({
-        $and: [                                             //and means insuring both query should be true
-            {_id: {$nin: Array.from(hideUsersFromFeed)}},  //nin means not in -> this array of hideUsersFromFeed
-            {_id: {$ne: loggedInUser._id}}                 //ne means not equal to all these are the db queries
-        ],
-    }).select(USER_SAFE_DATA)
+      $and: [
+        //and means insuring both query should be true
+        { _id: { $nin: Array.from(hideUsersFromFeed) } }, //nin means not in -> this array of hideUsersFromFeed
+        { _id: { $ne: loggedInUser._id } }, //ne means not equal to all these are the db queries
+      ],
+    })
+      .select(USER_SAFE_DATA)
+      .skip(skip)
+      .limit(limit);
 
-    res.send(users);
-
+    res.json({ data: users });
   } catch (err) {
     res.status(400).json({ message: err.message });
   }
