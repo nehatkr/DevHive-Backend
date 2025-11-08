@@ -23,6 +23,13 @@ app.use("/", profileRouter);
 app.use("/", requestRouter);
 app.use("/", userRouter);
 
+app.use("/", (req,res)=>{
+  res.send({
+    activeStatus: true,
+    error:false,
+  })
+})
+
 connectToDB()
   .then(() => {
     console.log("DataBase connected successfully");
