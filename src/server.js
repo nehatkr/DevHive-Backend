@@ -5,7 +5,7 @@ const cookieParser = require("cookie-parser");
 const cors = require('cors')
 
 app.use(cors({
-  origin: ["http://localhost:5173", "https://devhive-web.netlify.app/"],     //whiteListing this domain
+  origin: ["http://localhost:5173", "https://devhive-web.netlify.app"],     //whiteListing this domain
   credentials : true
 }));
 app.use(express.json()); //using a middle ware to read the json data of the req body of the api
